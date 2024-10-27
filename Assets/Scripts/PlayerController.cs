@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
 {
     public float walkSpeed = 5f; 
     public float runSpeed = 10f;
+    public float rollSpeed = 20f;
+    public float crouchSpeed = 0f;
     public float airWalkSpeed = 3f;
     public float JumpImpulse = 10f;
     Vector2 moveInput;
@@ -22,16 +24,30 @@ public class PlayerController : MonoBehaviour
             {
                 if (touchingDirections.IsGrounded)
                 {
-                    if (isRunning)
-                    {
-                        return runSpeed;
+                    if (IsCrouching)
+                    {       
+                        if (isRunning)
+                        {
+                            if (IsRolling)
+                            {
+                                return rollSpeed;
+                            }
+                            else
+                            {
+                                return runSpeed;
+                            }
+                        }
+                        else
+                        {
+                            return walkSpeed;
+                        }
                     }
-                    else
+                    else 
                     {
-                        return walkSpeed;
+                        return crouchSpeed;
                     }
                 }
-                else 
+                else
                 {
                     return airWalkSpeed;
                 }
@@ -40,8 +56,8 @@ public class PlayerController : MonoBehaviour
             {
                 // Idle
                 return 0;
-        } 
-    }
+            } 
+        }
     }
 
 
@@ -71,6 +87,31 @@ public class PlayerController : MonoBehaviour
         } 
     }
 
+    [SerializeField]
+    private bool isRolling = false;
+    public bool IsRolling { get
+        {
+            return isRolling;
+        } 
+        private set
+        {
+            isRolling = value;
+            anim.SetBool(AnimStrings.IsRolling, value);
+        } 
+    }
+
+    [SerializeField]
+    private bool isCrouching = false;
+    public bool IsCrouching { get
+        {
+            return isCrouching;
+        } 
+        private set
+        {
+            isCrouching = value;
+            anim.SetBool(AnimStrings.IsCrouching, value);
+        } 
+    }
 
     public bool _isFacingRight = true;
     public bool IsFacingRight { get 
@@ -138,6 +179,30 @@ public class PlayerController : MonoBehaviour
         else if (context.canceled)
         {
             IsRunning = false;
+        }
+    }
+
+        public void OnRoll(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            IsRolling = true;
+        }
+        else if (context.canceled)
+        {
+            IsRolling = false;
+        }
+    }
+
+            public void OnCrouch(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            IsCrouching = true;
+        }
+        else if (context.canceled)
+        {
+            IsCrouching = false;
         }
     }
 
