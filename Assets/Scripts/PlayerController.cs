@@ -19,36 +19,41 @@ public class PlayerController : MonoBehaviour
     Vector2 moveInput;
 
     TouchingDirections touchingDirections;
-
     public float currentMoveSpeed { get
-        {   
-            if (IsMoving && !touchingDirections.IsOnWall)
-            {
-                if (touchingDirections.IsGrounded)
+        { 
+            if (canMove)
+            {  
+                if (IsMoving && !touchingDirections.IsOnWall)
                 {
-                    if (IsRunning)
+                    if (touchingDirections.IsGrounded)
                     {
-                        return runSpeed;
-                    }
-                    else if (IsCrouching)
-                    {
-                        return crouchSpeed;
+                        if (IsRunning)
+                        {
+                            return runSpeed;
+                        }
+                        else if (IsCrouching)
+                        {
+                            return crouchSpeed;
+                        }
+                        else
+                        {
+                            return walkSpeed;
+                        }
                     }
                     else
                     {
-                        return walkSpeed;
+                        return airWalkSpeed;
                     }
                 }
                 else
                 {
-                    return airWalkSpeed;
-                }
+                    return 0; // Idle
+                } 
             }
             else
             {
-                // Idle
-                return 0;
-            } 
+                return 0; // Locked movement
+            }
         }
     }
 
@@ -92,6 +97,32 @@ public class PlayerController : MonoBehaviour
         } 
     }
 
+    [SerializeField]
+    private bool isAttacking = false;
+    public bool IsAttacking { get
+        {
+            return isAttacking;
+        } 
+        private set
+        {
+            isAttacking = value;
+            anim.SetBool(AnimStrings.IsAttacking, value);
+        } 
+    }
+
+    [SerializeField]
+    private bool isAltAttacking = false;
+    public bool IsAltAttacking { get
+        {
+            return isAltAttacking;
+        } 
+        private set
+        {
+            isAltAttacking = value;
+            anim.SetBool(AnimStrings.IsAltAttacking, value);
+        } 
+    }
+
     public bool _isFacingRight = true;
     public bool IsFacingRight { get 
         {
@@ -109,6 +140,28 @@ public class PlayerController : MonoBehaviour
         }    
     }
 
+    public bool canMove {get
+        {
+            return anim.GetBool(AnimStrings.canMove);
+        }
+    }
+
+    public bool isAlive {get
+        {
+            return anim.GetBool(AnimStrings.isAlive);
+        }
+    }
+
+    public bool LockVelocity { get
+        {
+            return anim.GetBool(AnimStrings.lockVelocity);
+        } 
+        set
+        {
+            anim.SetBool(AnimStrings.lockVelocity, value);
+        }
+    }
+
     Rigidbody2D rb;
     Animator anim;
 
@@ -120,8 +173,9 @@ public class PlayerController : MonoBehaviour
     }
 
     void FixedUpdate()
-    {
-        rb.velocity = new Vector2(moveInput.x * currentMoveSpeed, rb.velocity.y);
+    {   
+        if (!LockVelocity)
+            rb.velocity = new Vector2(moveInput.x * currentMoveSpeed, rb.velocity.y);
         anim.SetFloat(AnimStrings.yVelocity, rb.velocity.y);
     }
 
@@ -130,9 +184,16 @@ public class PlayerController : MonoBehaviour
     {
         moveInput = context.ReadValue<Vector2>();
 
+        if (isAlive)
+        {
         IsMoving = moveInput != Vector2.zero;
 
         SetFacingDirection(moveInput);
+        }
+        else 
+        {
+            IsMoving = false;
+        }
     }
 
     private void SetFacingDirection(Vector2 moveInput)
@@ -161,7 +222,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-            public void OnCrouch(InputAction.CallbackContext context)
+    public void OnCrouch(InputAction.CallbackContext context)
     {
         if (context.started)
         {
@@ -173,11 +234,35 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void OnAttack(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            IsAttacking = true;
+        }
+        else if (context.canceled)
+        {
+            IsAttacking = false;
+        }
+    }
+
+    public void OnAltAttack(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            IsAltAttacking = true;
+        }
+        else if (context.canceled)
+        {
+            IsAltAttacking = false;
+        }
+    }
+
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.started && touchingDirections.IsGrounded)
+        if (context.started && touchingDirections.IsGrounded && canMove)
         {
-            anim.SetTrigger(AnimStrings.Jump);
+            anim.SetTrigger(AnimStrings.JumpTrigger);
             rb.velocity = new Vector2(rb.velocity.x, JumpImpulse);
         }
     }
@@ -186,8 +271,17 @@ public class PlayerController : MonoBehaviour
     {
         if (context.started && touchingDirections.IsGrounded)
         {
-            anim.SetTrigger(AnimStrings.Roll);
+            anim.SetTrigger(AnimStrings.RollTrigger);
             rb.velocity = new Vector2(rb.velocity.x, RollImpulse);
         }
     }
+
+    public void OnHit(int damage, Vector2 knockback)
+    {   
+        LockVelocity = true;
+        rb.velocity = new Vector2(knockback.x, rb.velocity.y + knockback.y);
+    }
+
 }
+
+
