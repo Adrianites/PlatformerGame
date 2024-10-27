@@ -13,6 +13,6 @@ internal class AnimStrings
     internal static string Jump = "Jump";
     internal static string IsOnCeiling = "IsOnCeiling";
     internal static string IsOnWall = "IsOnWall";
-    internal static string IsRolling = "IsRolling";
+    internal static string Roll = "Roll";
     internal static string IsCrouching = "IsCrouching";
 }

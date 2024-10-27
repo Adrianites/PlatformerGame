@@ -15,7 +15,9 @@ public class PlayerController : MonoBehaviour
     public float crouchSpeed = 0f;
     public float airWalkSpeed = 3f;
     public float JumpImpulse = 10f;
+    public float RollImpulse = 10f;
     Vector2 moveInput;
+
     TouchingDirections touchingDirections;
 
     public float currentMoveSpeed { get
@@ -24,27 +26,17 @@ public class PlayerController : MonoBehaviour
             {
                 if (touchingDirections.IsGrounded)
                 {
-                    if (IsCrouching)
-                    {       
-                        if (isRunning)
-                        {
-                            if (IsRolling)
-                            {
-                                return rollSpeed;
-                            }
-                            else
-                            {
-                                return runSpeed;
-                            }
-                        }
-                        else
-                        {
-                            return walkSpeed;
-                        }
+                    if (IsRunning)
+                    {
+                        return runSpeed;
                     }
-                    else 
+                    else if (IsCrouching)
                     {
                         return crouchSpeed;
+                    }
+                    else
+                    {
+                        return walkSpeed;
                     }
                 }
                 else
@@ -84,19 +76,6 @@ public class PlayerController : MonoBehaviour
         {
             isRunning = value;
             anim.SetBool(AnimStrings.IsRunning, value);
-        } 
-    }
-
-    [SerializeField]
-    private bool isRolling = false;
-    public bool IsRolling { get
-        {
-            return isRolling;
-        } 
-        private set
-        {
-            isRolling = value;
-            anim.SetBool(AnimStrings.IsRolling, value);
         } 
     }
 
@@ -182,18 +161,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-        public void OnRoll(InputAction.CallbackContext context)
-    {
-        if (context.started)
-        {
-            IsRolling = true;
-        }
-        else if (context.canceled)
-        {
-            IsRolling = false;
-        }
-    }
-
             public void OnCrouch(InputAction.CallbackContext context)
     {
         if (context.started)
@@ -212,6 +179,15 @@ public class PlayerController : MonoBehaviour
         {
             anim.SetTrigger(AnimStrings.Jump);
             rb.velocity = new Vector2(rb.velocity.x, JumpImpulse);
+        }
+    }
+
+    public void OnRoll(InputAction.CallbackContext context)
+    {
+        if (context.started && touchingDirections.IsGrounded)
+        {
+            anim.SetTrigger(AnimStrings.Roll);
+            rb.velocity = new Vector2(rb.velocity.x, RollImpulse);
         }
     }
 }
