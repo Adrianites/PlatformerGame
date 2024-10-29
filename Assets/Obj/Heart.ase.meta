@@ -250,7 +250,7 @@ ScriptedImporter:
     layerType: 0
     blendMode: 0
     cells:
-    - name: Frame_0
+    - name: Heart_Frame_0
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
@@ -259,7 +259,7 @@ ScriptedImporter:
         width: 44
         height: 46
       spriteId: 7e5783041559b394a8fc13b054331e82
-    - name: Frame_1
+    - name: Heart_Frame_1
       frameIndex: 1
       additiveSortOrder: 0
       cellRect:
@@ -268,7 +268,7 @@ ScriptedImporter:
         width: 41
         height: 43
       spriteId: efcaea929d5d89140b296e56783237b2
-    - name: Frame_2
+    - name: Heart_Frame_2
       frameIndex: 2
       additiveSortOrder: 0
       cellRect:
@@ -277,7 +277,7 @@ ScriptedImporter:
         width: 37
         height: 39
       spriteId: 08ecddf4046549c41b30a45c19656dfc
-    - name: Frame_3
+    - name: Heart_Frame_3
       frameIndex: 3
       additiveSortOrder: 0
       cellRect:
@@ -286,7 +286,7 @@ ScriptedImporter:
         width: 29
         height: 32
       spriteId: 4d024d33164c59443bf6f47a50e7adfb
-    - name: Frame_4
+    - name: Heart_Frame_4
       frameIndex: 4
       additiveSortOrder: 0
       cellRect:
@@ -295,7 +295,7 @@ ScriptedImporter:
         width: 37
         height: 39
       spriteId: 7e7de0d40b5e34f458dba44fef28d697
-    - name: Frame_5
+    - name: Heart_Frame_5
       frameIndex: 5
       additiveSortOrder: 0
       cellRect:

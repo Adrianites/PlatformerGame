@@ -174,7 +174,7 @@ MonoBehaviour:
   m_Follow: {fileID: 526482906}
   m_Lens:
     FieldOfView: 34
-    OrthographicSize: 7.6700788
+    OrthographicSize: 8.02
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -695,6 +695,7 @@ GameObject:
   - component: {fileID: 343125514}
   - component: {fileID: 343125521}
   - component: {fileID: 343125522}
+  - component: {fileID: 343125523}
   m_Layer: 0
   m_Name: RobotSide
   m_TagString: Untagged
@@ -950,6 +951,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 1
   switchTime: 2
+--- !u!70 &343125523
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 343125512}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.35351115, y: -0.018509403}
+  m_Size: {x: 0.280459, y: 0.45775542}
+  m_Direction: 0
 --- !u!1 &367109177
 GameObject:
   m_ObjectHideFlags: 0
@@ -1167,7 +1203,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 7.6700788
+  orthographic size: 8.02
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
