@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     public float crouchSpeed = 0f;
     public float airWalkSpeed = 3f;
     public float JumpImpulse = 10f;
-    public float RollImpulse = 10f;
+    public float RollImpulse = 1000f;
     Vector2 moveInput;
 
     TouchingDirections touchingDirections;
@@ -272,7 +272,7 @@ public class PlayerController : MonoBehaviour
         if (context.started && touchingDirections.IsGrounded)
         {
             anim.SetTrigger(AnimStrings.RollTrigger);
-            rb.velocity = new Vector2(rb.velocity.x, RollImpulse);
+            rb.velocity = new Vector2(RollImpulse, rb.velocity.y);
         }
     }
 
