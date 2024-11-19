@@ -139,7 +139,8 @@ MonoBehaviour:
   crouchSpeed: 0
   airWalkSpeed: 3
   JumpImpulse: 8
-  RollImpulse: 10
+  RollImpulse: 1
+  IsRolling: 0
   _isMoving: 0
   isRunning: 0
   isCrouching: 0

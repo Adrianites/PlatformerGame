@@ -11,11 +11,11 @@ public class PlayerController : MonoBehaviour
 {
     public float walkSpeed = 5f; 
     public float runSpeed = 10f;
-    public float rollSpeed = 20f;
     public float crouchSpeed = 0f;
     public float airWalkSpeed = 3f;
     public float JumpImpulse = 10f;
-    public float RollImpulse = 1000f;
+    public float RollImpulse = 1f;
+    public bool IsRolling = false;
     Vector2 moveInput;
 
     TouchingDirections touchingDirections;
@@ -273,6 +273,7 @@ public class PlayerController : MonoBehaviour
         {
             anim.SetTrigger(AnimStrings.RollTrigger);
             rb.velocity = new Vector2(RollImpulse, rb.velocity.y);
+            IsRolling = true;
         }
     }
 
