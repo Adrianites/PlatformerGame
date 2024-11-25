@@ -6,7 +6,7 @@ public class Attractable : MonoBehaviour
     [SerializeField] private bool rotateToCentre = true;
     [SerializeField] private Attractor currentAttractor;
     [SerializeField] private float gravityStrength = 100;
-    [SerializeField] private float rotationSpeed = 5f; // Speed of rotation
+    [SerializeField] private float rotationSpeed = 5f; 
 
     Transform _transform;
     Collider2D _collider;
@@ -58,6 +58,7 @@ public class Attractable : MonoBehaviour
         float angle = Mathf.Atan2(distanceVector.y, distanceVector.x) * Mathf.Rad2Deg;
         Quaternion targetRotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
         _transform.rotation = Quaternion.Lerp(_transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+        Debug.Log("Sprite Angle: " + Quaternion.Angle(_transform.rotation, targetRotation));
     }
 
     void ResetRotation()
@@ -67,6 +68,7 @@ public class Attractable : MonoBehaviour
         {
             _transform.rotation = Quaternion.identity;
             isResettingRotation = false;
+            Debug.Log("Resetting Rotation");
         }
     }
 

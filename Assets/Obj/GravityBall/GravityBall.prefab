@@ -138,7 +138,7 @@ MonoBehaviour:
   AttractionLayer:
     serializedVersion: 2
     m_Bits: 128
-  GravityForce: 10
+  GravityForce: 50
   Radius: 10
   Pulling: 0
   AttractedObjects: []

@@ -51,7 +51,7 @@ public class PortalController : MonoBehaviour
     IEnumerator Interact()
     {   
         Interacted = true;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.01f);
         Interacted = false;
     }
 
@@ -72,6 +72,7 @@ public class PortalController : MonoBehaviour
         float timer = 0;
         while (timer < 0.5f)
         {
+            Debug.Log("Moving in portal");
             player.transform.position = Vector2.MoveTowards(player.transform.position, transform.position, 4 * Time.deltaTime);
             yield return new WaitForEndOfFrame();
             timer += Time.deltaTime;

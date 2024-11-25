@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.Universal;
 
 
 [RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirections))]
@@ -22,7 +23,9 @@ public class PlayerController : MonoBehaviour
     Vector2 moveInput;
     TouchingDirections touchingDirections;
     Attractable attractable;
-        Rigidbody2D rb;
+    Rigidbody2D rb;
+
+    SpriteRenderer sr;
     Animator anim;
     GameObject portal;
     PortalController portalController;
@@ -135,7 +138,8 @@ public class PlayerController : MonoBehaviour
         } 
     }
 
-    public bool IsFacingRight { get 
+    public bool IsFacingRight { 
+        get 
         {
             Debug.Log("is facing right " + _isFacingRight);
             return _isFacingRight;
@@ -147,6 +151,7 @@ public class PlayerController : MonoBehaviour
             {
                 // flip the local scale to make player look the other way
                 transform.localScale *= new Vector2(-1, 1);
+                // sr.flipX = !sr.flipX;
                 Debug.Log("flipping character");
             }
             _isFacingRight = value;
@@ -181,6 +186,7 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        sr = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         touchingDirections = GetComponent<TouchingDirections>();
         attractable = GetComponent<Attractable>();
