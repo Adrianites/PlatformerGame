@@ -9,6 +9,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirections))]
 public class PlayerController : MonoBehaviour
 {
+#region Setting Variables
     public float walkSpeed = 5f; 
     public float runSpeed = 10f;
     public float crouchSpeed = 0f;
@@ -16,9 +17,19 @@ public class PlayerController : MonoBehaviour
     public float JumpImpulse = 10f;
     public float RollImpulse = 1f;
     public bool IsRolling = false;
+    public InteractionType interactionType;
+    public enum InteractionType {Portal, Lever, Door, Chest, NPC};
     Vector2 moveInput;
-
     TouchingDirections touchingDirections;
+    Attractable attractable;
+        Rigidbody2D rb;
+    Animator anim;
+    GameObject portal;
+    PortalController portalController;
+    public bool _isFacingRight = true;
+#endregion
+
+#region Current Movement Speed
     public float currentMoveSpeed { get
         { 
             if (canMove)
@@ -56,8 +67,9 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+#endregion
 
-
+#region Animation Variables
     [SerializeField]
     private bool _isMoving = false;
     public bool IsMoving { get
@@ -123,9 +135,9 @@ public class PlayerController : MonoBehaviour
         } 
     }
 
-    public bool _isFacingRight = true;
     public bool IsFacingRight { get 
         {
+            Debug.Log("is facing right " + _isFacingRight);
             return _isFacingRight;
         }
         private set
@@ -135,9 +147,11 @@ public class PlayerController : MonoBehaviour
             {
                 // flip the local scale to make player look the other way
                 transform.localScale *= new Vector2(-1, 1);
+                Debug.Log("flipping character");
             }
             _isFacingRight = value;
-        }    
+            Debug.Log("not flipping character");
+        }      
     }
 
     public bool canMove {get
@@ -161,25 +175,30 @@ public class PlayerController : MonoBehaviour
             anim.SetBool(AnimStrings.lockVelocity, value);
         }
     }
+#endregion
 
-    Rigidbody2D rb;
-    Animator anim;
-
+#region Awake
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         touchingDirections = GetComponent<TouchingDirections>();
+        attractable = GetComponent<Attractable>();
+        portal = GameObject.FindGameObjectWithTag("Portal");
+        portalController = portal.GetComponent<PortalController>();
     }
+#endregion
 
+#region Fixed Updates
     void FixedUpdate()
     {   
         if (!LockVelocity)
             rb.velocity = new Vector2(moveInput.x * currentMoveSpeed, rb.velocity.y);
         anim.SetFloat(AnimStrings.yVelocity, rb.velocity.y);
     }
+#endregion
 
-
+#region Input Actions
     public void OnMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
@@ -202,11 +221,13 @@ public class PlayerController : MonoBehaviour
         {
             // face right
             IsFacingRight = true;
+            Debug.Log("facing right");
         }
         else if (moveInput.x < 0 && IsFacingRight)
         {
             // face left
             IsFacingRight = false;
+            Debug.Log("facing left");
         }
     }
 
@@ -260,7 +281,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.started && touchingDirections.IsGrounded && canMove)
+        if (context.started && (touchingDirections.IsGrounded || (attractable != null && attractable.IsOnSide())) && canMove)
         {
             anim.SetTrigger(AnimStrings.JumpTrigger);
             rb.velocity = new Vector2(rb.velocity.x, JumpImpulse);
@@ -283,6 +304,33 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector2(knockback.x, rb.velocity.y + knockback.y);
     }
 
+    public void OnInteract(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            switch(interactionType)
+            {
+                case InteractionType.Portal:
+                    portalController.OnInteraction();
+                    break;
+                case InteractionType.Lever:
+                    // Interact with lever
+                    break;
+                case InteractionType.Door:
+                    // Interact with door
+                    break;
+                case InteractionType.Chest:
+                    // Interact with chest
+                    break;
+                case InteractionType.NPC:
+                    // Interact with NPC
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+#endregion
+
+
 }
-
-

@@ -6,10 +6,12 @@ public class Attractable : MonoBehaviour
     [SerializeField] private bool rotateToCentre = true;
     [SerializeField] private Attractor currentAttractor;
     [SerializeField] private float gravityStrength = 100;
+    [SerializeField] private float rotationSpeed = 5f; // Speed of rotation
 
     Transform _transform;
     Collider2D _collider;
     Rigidbody2D rb;
+    bool isResettingRotation = false;
 
     private void Start()
     {
@@ -25,6 +27,7 @@ public class Attractable : MonoBehaviour
             if (!currentAttractor.AttractedObjects.Contains(_collider))
             {
                 currentAttractor = null;
+                isResettingRotation = true;
                 return;
             }
             if (rotateToCentre) RotateToCentre();
@@ -33,15 +36,17 @@ public class Attractable : MonoBehaviour
         else
         {
             rb.gravityScale = 1;
+            if (isResettingRotation) ResetRotation();
         }
     }
 
     public void Attract(Attractor attractorObj)
     {
         Vector2 attractionDir = ((Vector2)attractorObj.attractorTransform.position - rb.position).normalized;
-        rb.AddForce(attractionDir * -attractorObj.Gravity * gravityStrength * Time.fixedDeltaTime);
+        float forceDirection = attractorObj.Pulling ? 1 : -1; 
+        rb.AddForce(attractionDir * forceDirection * attractorObj.GravityForce * gravityStrength * Time.fixedDeltaTime);
 
-        if (currentAttractor == null)
+        if (currentAttractor == null || Vector2.Distance(rb.position, attractorObj.attractorTransform.position) < Vector2.Distance(rb.position, currentAttractor.attractorTransform.position))
         {
             currentAttractor = attractorObj;
         }
@@ -51,6 +56,28 @@ public class Attractable : MonoBehaviour
     {
         Vector2 distanceVector = (Vector2)currentAttractor.attractorTransform.position - (Vector2)_transform.position;
         float angle = Mathf.Atan2(distanceVector.y, distanceVector.x) * Mathf.Rad2Deg;
-        _transform.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
+        Quaternion targetRotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
+        _transform.rotation = Quaternion.Lerp(_transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+    }
+
+    void ResetRotation()
+    {
+        _transform.rotation = Quaternion.Lerp(_transform.rotation, Quaternion.identity, Time.deltaTime * rotationSpeed);
+        if (Quaternion.Angle(_transform.rotation, Quaternion.identity) < 0.1f)
+        {
+            _transform.rotation = Quaternion.identity;
+            isResettingRotation = false;
+        }
+    }
+
+    public bool IsOnSide()
+    {
+        if (currentAttractor == null) return false;
+
+        Vector2 distanceVector = (Vector2)currentAttractor.attractorTransform.position - (Vector2)_transform.position;
+        float angle = Mathf.Atan2(distanceVector.y, distanceVector.x) * Mathf.Rad2Deg;
+
+        // Check if the player is on the side (within a certain angle range)
+        return angle > -45 && angle < 45;
     }
 }

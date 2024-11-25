@@ -138,8 +138,9 @@ MonoBehaviour:
   AttractionLayer:
     serializedVersion: 2
     m_Bits: 128
-  Gravity: 100
+  GravityForce: 10
   Radius: 10
+  Pulling: 0
   AttractedObjects: []
   attractorTransform: {fileID: 0}
 --- !u!95 &-8400911460412125560
@@ -152,7 +153,7 @@ Animator:
   m_GameObject: {fileID: 6196716235371772155}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fffb5c8b7fd2c784689c13af9340623b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
