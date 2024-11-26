@@ -22,7 +22,7 @@ internal class AnimStrings
     internal static string isAlive = "IsAlive";
     internal static string HitTrigger = "Hit";
 
-    public static string lockVelocity = "LockVelocity";
+    internal static string lockVelocity = "LockVelocity";
     internal static string EnterPortal = "EnterPortal";
     internal static string ExitPortal = "ExitPortal";
 }
