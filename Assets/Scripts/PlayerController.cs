@@ -190,8 +190,11 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
         touchingDirections = GetComponent<TouchingDirections>();
         attractable = GetComponent<Attractable>();
-        portal = GameObject.FindGameObjectWithTag("Portal");
-        portalController = portal.GetComponent<PortalController>();
+        if (GameObject.FindGameObjectWithTag("Portal") != null)
+        {
+            portal = GameObject.FindGameObjectWithTag("Portal");
+            portalController = portal.GetComponent<PortalController>();
+        }
     }
 #endregion
 
