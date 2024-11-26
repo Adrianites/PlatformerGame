@@ -141,7 +141,7 @@ public class PlayerController : MonoBehaviour
     public bool IsFacingRight { 
         get 
         {
-            Debug.Log("is facing right " + _isFacingRight);
+            // Debug.Log("is facing right " + _isFacingRight);
             return _isFacingRight;
         }
         private set
@@ -152,10 +152,10 @@ public class PlayerController : MonoBehaviour
                 // flip the local scale to make player look the other way
                 transform.localScale *= new Vector2(-1, 1);
                 // sr.flipX = !sr.flipX;
-                Debug.Log("flipping character");
+                // Debug.Log("flipping character");
             }
             _isFacingRight = value;
-            Debug.Log("not flipping character");
+            // Debug.Log("not flipping character");
         }      
     }
 
@@ -227,13 +227,13 @@ public class PlayerController : MonoBehaviour
         {
             // face right
             IsFacingRight = true;
-            Debug.Log("facing right");
+            // Debug.Log("facing right");
         }
         else if (moveInput.x < 0 && IsFacingRight)
         {
             // face left
             IsFacingRight = false;
-            Debug.Log("facing left");
+            // Debug.Log("facing left");
         }
     }
 
@@ -318,6 +318,7 @@ public class PlayerController : MonoBehaviour
             {
                 case InteractionType.Portal:
                     portalController.OnInteraction();
+                    Debug.Log("Interacting with portal (Player Controller)");
                     break;
                 case InteractionType.Lever:
                     // Interact with lever

@@ -18,9 +18,10 @@ GameObject:
   - component: {fileID: 2254573633778782707}
   - component: {fileID: 9220878048280519703}
   - component: {fileID: 3754810279246540486}
+  - component: {fileID: 5432654916677211107}
   m_Layer: 7
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -35,7 +36,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.06334032, y: -1.7463125, z: 0.022943286}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1844642780291734776}
@@ -135,18 +136,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 5
   runSpeed: 10
-  rollSpeed: 20
   crouchSpeed: 0
   airWalkSpeed: 3
   JumpImpulse: 8
   RollImpulse: 1
   IsRolling: 0
+  interactionType: 0
+  _isFacingRight: 1
   _isMoving: 0
   isRunning: 0
   isCrouching: 0
   isAttacking: 0
   isAltAttacking: 0
-  _isFacingRight: 1
 --- !u!114 &3176701354715965348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -295,28 +296,12 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 5b5d0383-fd01-4b55-a19d-37688e8db43d
-    m_ActionName: Player/Roll[/Keyboard/leftAlt]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7445213578809150035}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: a2f23656-2de6-4b58-b8b7-4102a6bba919
-    m_ActionName: Player/Crouch[/Keyboard/leftCtrl]
+    m_ActionName: Player/Roll[/Keyboard/leftCtrl]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7445213578809150035}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnAltAttack
+        m_MethodName: OnCrouch
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -326,8 +311,28 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+    m_ActionId: a2f23656-2de6-4b58-b8b7-4102a6bba919
+    m_ActionName: Player/Crouch[/Keyboard/leftCtrl]
+  - m_PersistentCalls:
+      m_Calls: []
     m_ActionId: a324af70-a500-4450-a076-758f0600aa2f
     m_ActionName: Player/AltAttack[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7445213578809150035}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnInteract
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 36cc69c8-4f83-4b4a-a487-49e85d2e1ecf
+    m_ActionName: Player/Interact[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -452,7 +457,7 @@ MonoBehaviour:
   _currentHealth: 100
   _isAlive: 1
   isInvincible: 0
-  invincibleTime: 1
+  invincibleTime: 0.5
 --- !u!114 &3754810279246540486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -468,6 +473,22 @@ MonoBehaviour:
   SpawnPoint1: {fileID: 1844642780291734776}
   SpawnPoint2: {fileID: 8791371369270124283}
   projectilePrefab: {fileID: 988686083747497088, guid: 4d3eede4931610342804373e15e41c18, type: 3}
+--- !u!114 &5432654916677211107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3361590408968308413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74dfc9babf08d9d498f8510340807b7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotateToCentre: 1
+  currentAttractor: {fileID: 0}
+  gravityStrength: 100
+  rotationSpeed: 5
 --- !u!1 &6299585025123627248
 GameObject:
   m_ObjectHideFlags: 0

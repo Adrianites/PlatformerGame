@@ -29,6 +29,7 @@ public class PortalController : MonoBehaviour
     {
         
         StartCoroutine(Interact());
+        Debug.Log("Portal Interaction Activated (Portal Controller)");
     }
 
 
@@ -37,6 +38,7 @@ public class PortalController : MonoBehaviour
         if (collision.CompareTag("Player") && Interacted == true)
         {
             StartCoroutine(PortalEnter());
+            Debug.Log("Portal Enter Activated (Enter Trigger)");
         }
     }
 
@@ -45,6 +47,7 @@ public class PortalController : MonoBehaviour
         if (collision.CompareTag("Player") && Interacted == true)
         {
             StartCoroutine(PortalEnter());
+            Debug.Log("Portal Enter Activated (Stay Trigger)");
         }
     }
 
