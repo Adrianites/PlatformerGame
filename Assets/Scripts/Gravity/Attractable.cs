@@ -54,6 +54,7 @@ public class Attractable : MonoBehaviour
 
     void RotateToCentre()
     {
+        rb.freezeRotation = false;                                          // added this to see if it will work now
         Vector2 distanceVector = (Vector2)currentAttractor.attractorTransform.position - (Vector2)_transform.position;
         float angle = Mathf.Atan2(distanceVector.y, distanceVector.x) * Mathf.Rad2Deg;
         Quaternion targetRotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
@@ -68,6 +69,7 @@ public class Attractable : MonoBehaviour
         {
             _transform.rotation = Quaternion.identity;
             isResettingRotation = false;
+            rb.freezeRotation = true;                                   // added this to see if it will work now
             Debug.Log("Resetting Rotation");
         }
     }

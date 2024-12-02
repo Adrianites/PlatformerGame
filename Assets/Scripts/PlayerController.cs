@@ -29,7 +29,9 @@ public class PlayerController : MonoBehaviour
     Animator anim;
     GameObject portal;
     PortalController portalController;
-    public bool _isFacingRight = true;
+
+    
+    
 #endregion
 
 #region Current Movement Speed
@@ -138,6 +140,8 @@ public class PlayerController : MonoBehaviour
         } 
     }
 
+    [SerializeField]
+    public bool _isFacingRight = true;
     public bool IsFacingRight { 
         get 
         {
@@ -290,7 +294,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.started && (touchingDirections.IsGrounded || (attractable != null && attractable.IsOnSide())) && canMove)
+        if (context.started && (touchingDirections.IsGrounded && canMove || (attractable != null && attractable.IsOnSide())))
         {
             anim.SetTrigger(AnimStrings.JumpTrigger);
             rb.velocity = new Vector2(rb.velocity.x, JumpImpulse);
