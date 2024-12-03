@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
 
 
-[RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirections))]
+[RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirections), typeof (Damageable))]
 public class PlayerController : MonoBehaviour
 {
 #region Setting Variables
@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     public enum InteractionType {Portal, Lever, Door, Chest, NPC};
     Vector2 moveInput;
     TouchingDirections touchingDirections;
+    Damageable dmgable;
     Attractable attractable;
     Rigidbody2D rb;
 
@@ -36,10 +37,8 @@ public class PlayerController : MonoBehaviour
     GameObject BulletCrouchRight;
     GameObject LightLeft;
     GameObject LightRight;
-    
-
-
-    
+    GameObject MeleeLeft;
+    GameObject MeleeRight;
     
 #endregion
 
@@ -183,16 +182,6 @@ public class PlayerController : MonoBehaviour
             return anim.GetBool(AnimStrings.isAlive);
         }
     }
-
-    public bool LockVelocity { get
-        {
-            return anim.GetBool(AnimStrings.lockVelocity);
-        } 
-        set
-        {
-            anim.SetBool(AnimStrings.lockVelocity, value);
-        }
-    }
 #endregion
 
 #region Awake
@@ -202,6 +191,7 @@ public class PlayerController : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         touchingDirections = GetComponent<TouchingDirections>();
+        dmgable = GetComponent<Damageable>();
         attractable = GetComponent<Attractable>();
         if (GameObject.FindGameObjectWithTag("Portal") != null)
         {
@@ -212,6 +202,8 @@ public class PlayerController : MonoBehaviour
         BulletRight = GameObject.FindGameObjectWithTag("BulletRight");
         BulletCrouchLeft = GameObject.FindGameObjectWithTag("BulletCrouchLeft");
         BulletCrouchRight = GameObject.FindGameObjectWithTag("BulletCrouchRight");
+        MeleeLeft = GameObject.FindGameObjectWithTag("MeleeLeft");
+        MeleeRight = GameObject.FindGameObjectWithTag("MeleeRight");
         if (GameObject.FindGameObjectWithTag("LightLeft") != null)
         {
             LightLeft = GameObject.FindGameObjectWithTag("LightLeft");
@@ -224,16 +216,17 @@ public class PlayerController : MonoBehaviour
     {
         BulletCrouchLeft.SetActive(false);
         BulletLeft.SetActive(false);
-         if (LightLeft != null)
-         {
-         LightLeft.SetActive(false);
-         }
+        MeleeLeft.SetActive(false);
+        if (LightLeft != null)
+        {
+        LightLeft.SetActive(false);
+        }
     }
 
 #region Fixed Updates
     void FixedUpdate()
     {   
-        if (!LockVelocity)
+        if (!dmgable.LockVelocity)
             rb.velocity = new Vector2(moveInput.x * currentMoveSpeed, rb.velocity.y);
         anim.SetFloat(AnimStrings.yVelocity, rb.velocity.y);
     }
@@ -266,6 +259,8 @@ public class PlayerController : MonoBehaviour
             BulletRight.SetActive(true);
             BulletCrouchLeft.SetActive(false);
             BulletCrouchRight.SetActive(true);
+            MeleeLeft.SetActive(false);
+            MeleeRight.SetActive(true);
             if (LightLeft != null)
             {
                 LightLeft.SetActive(false);
@@ -282,6 +277,8 @@ public class PlayerController : MonoBehaviour
             BulletRight.SetActive(false);
             BulletCrouchLeft.SetActive(true);
             BulletCrouchRight.SetActive(false);
+            MeleeLeft.SetActive(true);
+            MeleeRight.SetActive(false);
             if (LightLeft != null)
             {
                 LightLeft.SetActive(true);
@@ -360,7 +357,6 @@ public class PlayerController : MonoBehaviour
 
     public void OnHit(int damage, Vector2 knockback)
     {   
-        LockVelocity = true;
         rb.velocity = new Vector2(knockback.x, rb.velocity.y + knockback.y);
     }
 

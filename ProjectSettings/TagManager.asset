@@ -12,6 +12,8 @@ TagManager:
   - BulletCrouchRight
   - LightLeft
   - LightRight
+  - MeleeLeft
+  - MeleeRight
   layers:
   - Default
   - TransparentFX

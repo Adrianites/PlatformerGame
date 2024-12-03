@@ -118,7 +118,7 @@ Transform:
   m_GameObject: {fileID: 6508604789305225580}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 2.878, y: 0, z: 0}
+  m_LocalPosition: {x: 4, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -168,14 +168,14 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 1.6824015, y: 1.5230997}
-      - {x: -0.26537186, y: 1.213838}
-      - {x: -0.96243757, y: -0.13040125}
-      - {x: -0.51496506, y: -1.105911}
-      - {x: 0.926095, y: -0.6133063}
-      - {x: 0.71721566, y: 0.3158611}
-      - {x: 1.6784724, y: 1.0393974}
-      - {x: 3.149489, y: 0.980564}
+    - - {x: 2.777246, y: 1.507459}
+      - {x: 1.1813865, y: 1.3076818}
+      - {x: 0.26535183, y: 0.08074713}
+      - {x: 0.36873007, y: -1.004247}
+      - {x: 2.0756807, y: -0.64458764}
+      - {x: 1.9059035, y: 0.09689236}
+      - {x: 2.2806368, y: 0.70312387}
+      - {x: 3.845497, y: 1.2464547}
   m_UseDelaunayMesh: 0
 --- !u!114 &5473495673377250216
 MonoBehaviour:
@@ -442,7 +442,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageableHit:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4043304417018380966}
+        m_TargetAssemblyTypeName: Knight, Assembly-CSharp
+        m_MethodName: OnHit
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _maxHealth: 100
   _currentHealth: 100
   _isAlive: 1
