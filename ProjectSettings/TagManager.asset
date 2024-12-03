@@ -6,6 +6,12 @@ TagManager:
   tags:
   - Attractable
   - Portal
+  - BulletLeft
+  - BulletRight
+  - BulletCrouchLeft
+  - BulletCrouchRight
+  - LightLeft
+  - LightRight
   layers:
   - Default
   - TransparentFX

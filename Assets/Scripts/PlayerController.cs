@@ -30,6 +30,15 @@ public class PlayerController : MonoBehaviour
     GameObject portal;
     PortalController portalController;
 
+    GameObject BulletLeft;
+    GameObject BulletRight;
+    GameObject BulletCrouchLeft;
+    GameObject BulletCrouchRight;
+    GameObject LightLeft;
+    GameObject LightRight;
+    
+
+
     
     
 #endregion
@@ -154,8 +163,8 @@ public class PlayerController : MonoBehaviour
             if (_isFacingRight != value)
             {
                 // flip the local scale to make player look the other way
-                transform.localScale *= new Vector2(-1, 1);
-                // sr.flipX = !sr.flipX;
+                // transform.localScale *= new Vector2(-1, 1);
+                sr.flipX = !sr.flipX;
                 // Debug.Log("flipping character");
             }
             _isFacingRight = value;
@@ -199,8 +208,27 @@ public class PlayerController : MonoBehaviour
             portal = GameObject.FindGameObjectWithTag("Portal");
             portalController = portal.GetComponent<PortalController>();
         }
+        BulletLeft = GameObject.FindGameObjectWithTag("BulletLeft");
+        BulletRight = GameObject.FindGameObjectWithTag("BulletRight");
+        BulletCrouchLeft = GameObject.FindGameObjectWithTag("BulletCrouchLeft");
+        BulletCrouchRight = GameObject.FindGameObjectWithTag("BulletCrouchRight");
+        if (GameObject.FindGameObjectWithTag("LightLeft") != null)
+        {
+            LightLeft = GameObject.FindGameObjectWithTag("LightLeft");
+            LightRight = GameObject.FindGameObjectWithTag("LightRight");
+        }
     }
 #endregion
+
+    void Start()
+    {
+        BulletCrouchLeft.SetActive(false);
+        BulletLeft.SetActive(false);
+         if (LightLeft != null)
+         {
+         LightLeft.SetActive(false);
+         }
+    }
 
 #region Fixed Updates
     void FixedUpdate()
@@ -234,12 +262,31 @@ public class PlayerController : MonoBehaviour
         {
             // face right
             IsFacingRight = true;
+            BulletLeft.SetActive(false);
+            BulletRight.SetActive(true);
+            BulletCrouchLeft.SetActive(false);
+            BulletCrouchRight.SetActive(true);
+            if (LightLeft != null)
+            {
+                LightLeft.SetActive(false);
+                LightRight.SetActive(true);
+            }
+
             // Debug.Log("facing right");
         }
         else if (moveInput.x < 0 && IsFacingRight)
         {
             // face left
             IsFacingRight = false;
+            BulletLeft.SetActive(true);
+            BulletRight.SetActive(false);
+            BulletCrouchLeft.SetActive(true);
+            BulletCrouchRight.SetActive(false);
+            if (LightLeft != null)
+            {
+                LightLeft.SetActive(true);
+                LightRight.SetActive(false);
+            }
             // Debug.Log("facing left");
         }
     }
@@ -324,8 +371,8 @@ public class PlayerController : MonoBehaviour
             switch(interactionType)
             {
                 case InteractionType.Portal:
-                    portalController.OnInteraction();
-                    Debug.Log("Interacting with portal (Player Controller)");
+                    //portalController.OnInteraction();
+                    //Debug.Log("Interacting with portal (Player Controller)");
                     break;
                 case InteractionType.Lever:
                     // Interact with lever

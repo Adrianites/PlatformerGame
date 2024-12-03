@@ -10,7 +10,7 @@ public class Bullet : MonoBehaviour
 
     public void BulletProjectile()
     {
-        GameObject projectile = Instantiate(projectilePrefab, SpawnPoint1.position, transform.rotation);
+        GameObject projectile = Instantiate(projectilePrefab, SpawnPoint1.position, SpawnPoint1.rotation);
         Vector3 origScale = projectile.transform.localScale;
 
         projectile.transform.localScale = new Vector3(

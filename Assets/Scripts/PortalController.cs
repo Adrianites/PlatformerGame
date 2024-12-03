@@ -11,7 +11,7 @@ public class PortalController : MonoBehaviour
     GameObject player;
     Animator anim;
     Rigidbody2D rb;
-    bool Interacted = false;
+    // bool Interacted = false;
 
     private void Awake()
     {
@@ -25,14 +25,17 @@ public class PortalController : MonoBehaviour
         this.destination = destination;
     }
 
+/*
     public void OnInteraction()
     {
-        
+        // Interacted = true;
         StartCoroutine(Interact());
         Debug.Log("Portal Interaction Activated (Portal Controller)");
+        Debug.Log("On interacted = " + Interacted);
     }
+*/
 
-
+/*
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player") && Interacted == true)
@@ -41,22 +44,26 @@ public class PortalController : MonoBehaviour
             Debug.Log("Portal Enter Activated (Enter Trigger)");
         }
     }
-
+*/
     private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player") && Interacted == true)
+    {   
+        // Debug.Log("On trigger stay " + Interacted);
+        if (collision.CompareTag("Player") /*&& Interacted == true*/)
         {
             StartCoroutine(PortalEnter());
             Debug.Log("Portal Enter Activated (Stay Trigger)");
         }
+        else Debug.Log("Portal Enter Not Activated (Stay Trigger)");
     }
 
+/*
     IEnumerator Interact()
     {   
         Interacted = true;
-        yield return new WaitForSeconds(0.01f);
+        yield return new WaitForSeconds(0.1f);
         Interacted = false;
     }
+*/
 
     IEnumerator PortalEnter()
     {
