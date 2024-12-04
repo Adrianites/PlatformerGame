@@ -25,4 +25,5 @@ internal class AnimStrings
     internal static string lockVelocity = "lockVelocity";
     internal static string EnterPortal = "EnterPortal";
     internal static string ExitPortal = "ExitPortal";
+    internal static string attackCooldown = "AttackCooldown";
 }
