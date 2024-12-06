@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -106,10 +107,25 @@ public class Damageable : MonoBehaviour
             anim.SetTrigger(AnimStrings.HitTrigger);
             LockVelocity = true;
             damageableHit?.Invoke(damage, knockback);
+            CharacterEvents.characterDamaged.Invoke(gameObject, damage);
 
             return true;
         }
         // unable to be hit
+        return false;
+    }
+
+    // Returns whether the character was healed or not
+    public bool Heal(int healthRestore)
+    {
+        if (IsAlive && CurrentHealth < MaxHealth)
+        {
+            int maxHeal = Mathf.Max(MaxHealth - CurrentHealth, 0);
+            int actualHeal = Mathf.Min(maxHeal, healthRestore);
+            CurrentHealth += actualHeal;
+            CharacterEvents.characterHealed(gameObject, actualHeal);
+            return true;
+        }
         return false;
     }
 }

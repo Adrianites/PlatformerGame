@@ -6,12 +6,12 @@ using UnityEngine.InputSystem.Controls;
 
 public class PortalController : MonoBehaviour
 {
-
     [SerializeField] private Transform destination;
     GameObject player;
     Animator anim;
     Rigidbody2D rb;
-    // bool Interacted = false;
+    bool Interacted = false;
+    private bool isMovingInPortal = false;
 
     private void Awake()
     {
@@ -25,30 +25,18 @@ public class PortalController : MonoBehaviour
         this.destination = destination;
     }
 
-/*
     public void OnInteraction()
     {
-        // Interacted = true;
-        StartCoroutine(Interact());
-        Debug.Log("Portal Interaction Activated (Portal Controller)");
-        Debug.Log("On interacted = " + Interacted);
-    }
-*/
-
-/*
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player") && Interacted == true)
+        if (!Interacted && !isMovingInPortal)
         {
-            StartCoroutine(PortalEnter());
-            Debug.Log("Portal Enter Activated (Enter Trigger)");
+            StartCoroutine(Interact());
+            Debug.Log("Portal Interaction Activated (Portal Controller)");
         }
     }
-*/
+
     private void OnTriggerStay2D(Collider2D collision)
     {   
-        // Debug.Log("On trigger stay " + Interacted);
-        if (collision.CompareTag("Player") /*&& Interacted == true*/)
+        if (collision.CompareTag("Player") && Interacted && !isMovingInPortal)
         {
             StartCoroutine(PortalEnter());
             Debug.Log("Portal Enter Activated (Stay Trigger)");
@@ -56,25 +44,27 @@ public class PortalController : MonoBehaviour
         else Debug.Log("Portal Enter Not Activated (Stay Trigger)");
     }
 
-/*
     IEnumerator Interact()
     {   
         Interacted = true;
         yield return new WaitForSeconds(0.1f);
         Interacted = false;
     }
-*/
 
     IEnumerator PortalEnter()
     {
+        if (!isMovingInPortal)
+        {
+            isMovingInPortal = true;
             rb.simulated = false;
             anim.SetTrigger(AnimStrings.EnterPortal);
-            StartCoroutine(MoveInPortal());
-            yield return new WaitForSeconds(0.5f);
+            yield return StartCoroutine(MoveInPortal());
             player.transform.position = destination.position;
             anim.SetTrigger(AnimStrings.ExitPortal);
             yield return new WaitForSeconds(0.5f);
             rb.simulated = true;
+            isMovingInPortal = false;
+        }
     }
 
     IEnumerator MoveInPortal()

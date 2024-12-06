@@ -42729,7 +42729,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3176701354715965348, guid: 204226f0cb8c0b24691f08f291137c11, type: 3}
       propertyPath: m_ActionEvents.Array.size
-      value: 17
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 3176701354715965348, guid: 204226f0cb8c0b24691f08f291137c11, type: 3}
       propertyPath: m_ActionEvents.Array.data[15].m_ActionId
@@ -42748,12 +42748,20 @@ PrefabInstance:
       value: Player/Crouch[/Keyboard/leftCtrl]
       objectReference: {fileID: 0}
     - target: {fileID: 3176701354715965348, guid: 204226f0cb8c0b24691f08f291137c11, type: 3}
+      propertyPath: m_ActionEvents.Array.data[18].m_ActionName
+      value: Player/Interact[/Keyboard/f]
+      objectReference: {fileID: 0}
+    - target: {fileID: 3176701354715965348, guid: 204226f0cb8c0b24691f08f291137c11, type: 3}
       propertyPath: m_ActionEvents.Array.data[15].m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3176701354715965348, guid: 204226f0cb8c0b24691f08f291137c11, type: 3}
       propertyPath: m_ActionEvents.Array.data[16].m_PersistentCalls.m_Calls.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3176701354715965348, guid: 204226f0cb8c0b24691f08f291137c11, type: 3}
+      propertyPath: m_ActionEvents.Array.data[18].m_PersistentCalls.m_Calls.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3176701354715965348, guid: 204226f0cb8c0b24691f08f291137c11, type: 3}
       propertyPath: m_ActionEvents.Array.data[15].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -42871,10 +42879,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8893977262908307069, guid: 204226f0cb8c0b24691f08f291137c11, type: 3}
-      propertyPath: projectilePrefab
-      value: 
-      objectReference: {fileID: 988686083747497088, guid: 4d3eede4931610342804373e15e41c18, type: 3}
     - target: {fileID: 9220878048280519703, guid: 204226f0cb8c0b24691f08f291137c11, type: 3}
       propertyPath: _isAlive
       value: 1

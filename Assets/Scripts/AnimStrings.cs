@@ -26,4 +26,6 @@ internal class AnimStrings
     internal static string EnterPortal = "EnterPortal";
     internal static string ExitPortal = "ExitPortal";
     internal static string attackCooldown = "AttackCooldown";
+
+    internal static string HealTrigger = "Heal";
 }

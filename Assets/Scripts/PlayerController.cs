@@ -217,6 +217,7 @@ public class PlayerController : MonoBehaviour
         BulletCrouchLeft.SetActive(false);
         BulletLeft.SetActive(false);
         MeleeLeft.SetActive(false);
+        BulletCrouchRight.SetActive(false);
         if (LightLeft != null)
         {
         LightLeft.SetActive(false);
@@ -256,9 +257,17 @@ public class PlayerController : MonoBehaviour
             // face right
             IsFacingRight = true;
             BulletLeft.SetActive(false);
-            BulletRight.SetActive(true);
             BulletCrouchLeft.SetActive(false);
+            if(!IsCrouching)
+            {
+            BulletRight.SetActive(true);
+            BulletCrouchRight.SetActive(false);
+            }
+            else
+            {
             BulletCrouchRight.SetActive(true);
+            BulletRight.SetActive(false);
+            }
             MeleeLeft.SetActive(false);
             MeleeRight.SetActive(true);
             if (LightLeft != null)
@@ -273,10 +282,18 @@ public class PlayerController : MonoBehaviour
         {
             // face left
             IsFacingRight = false;
-            BulletLeft.SetActive(true);
             BulletRight.SetActive(false);
-            BulletCrouchLeft.SetActive(true);
             BulletCrouchRight.SetActive(false);
+            if(!IsCrouching)
+            {
+            BulletLeft.SetActive(true);
+            BulletCrouchLeft.SetActive(false);
+            }
+            else
+            {
+            BulletCrouchLeft.SetActive(true);
+            BulletLeft.SetActive(false);
+            }
             MeleeLeft.SetActive(true);
             MeleeRight.SetActive(false);
             if (LightLeft != null)
@@ -305,10 +322,30 @@ public class PlayerController : MonoBehaviour
         if (context.started)
         {
             IsCrouching = true;
+            if(IsFacingRight)
+            {
+                BulletRight.SetActive(false);
+                BulletCrouchRight.SetActive(true);
+            }
+            else
+            {
+                BulletLeft.SetActive(false);
+                BulletCrouchLeft.SetActive(true);
+            }
         }
         else if (context.canceled)
         {
             IsCrouching = false;
+            if(IsFacingRight)
+            {
+                BulletCrouchRight.SetActive(false);
+                BulletRight.SetActive(true);
+            }
+            else
+            {
+                BulletCrouchLeft.SetActive(false);
+                BulletLeft.SetActive(true);
+            }
         }
     }
 
@@ -367,7 +404,7 @@ public class PlayerController : MonoBehaviour
             switch(interactionType)
             {
                 case InteractionType.Portal:
-                    //portalController.OnInteraction();
+                    portalController.OnInteraction();
                     //Debug.Log("Interacting with portal (Player Controller)");
                     break;
                 case InteractionType.Lever:
@@ -389,5 +426,9 @@ public class PlayerController : MonoBehaviour
     }
 #endregion
 
+    public void HealAnim()
+    {
+        anim.SetTrigger(AnimStrings.HealTrigger);
+    }
 
 }

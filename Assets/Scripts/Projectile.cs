@@ -1,39 +1,46 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Numerics;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    public Vector2 moveSpeed = new Vector2(3f, 0);
+    public Vector2 knockback = new Vector2(0, 0);
     public int damage = 10;
-    public UnityEngine.Vector2 moveSpeed = new UnityEngine.Vector2(7f, 0);
-
-
     Rigidbody2D rb;
+    public PlayerController player;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        player = FindObjectOfType<PlayerController>();
     }
-    // Start is called before the first frame update
-    void Start()
+
+    private void Start()
     {
-        rb.velocity = new UnityEngine.Vector2(moveSpeed.x * transform.localScale.x, moveSpeed.y);
+        if (player.IsFacingRight)
+        {
+            rb.velocity = new Vector2(moveSpeed.x, moveSpeed.y);
+        }
+        else
+        {
+            rb.velocity = new Vector2(-moveSpeed.x, moveSpeed.y);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        Damageable damageable = collision.GetComponent<Damageable>();
-
-        if (damageable != null)
+        Damageable dmgable = collision.GetComponent<Damageable>();
+        if (dmgable != null)
         {
-            bool gotHit = damageable.Hit(damage, UnityEngine.Vector2.zero);
-
-            if (gotHit)
+            Vector2 deliveredKnockback = transform.localScale.x > 0 ? knockback : new Vector2(-knockback.x, knockback.y);
+            bool gotHit = dmgable.Hit(damage, deliveredKnockback);
+            
+            if(gotHit)
             {
                 Debug.Log(collision.name + "Hits for" + damage);
                 Destroy(gameObject);
-            }
         }
+    }
     }
 }
