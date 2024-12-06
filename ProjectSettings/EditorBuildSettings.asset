@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TestArea.unity
     guid: 5291ac39f808fb644992bdc0f1fcd753
+  - enabled: 1
+    path: Assets/Scenes/QuitScene.unity
+    guid: aa33cd38e77f993458df34464febdda8
   m_configObjects: {}

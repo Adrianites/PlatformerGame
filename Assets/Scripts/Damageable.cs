@@ -7,6 +7,7 @@ using UnityEngine.Events;
 public class Damageable : MonoBehaviour
 {
     public UnityEvent<int, Vector2> damageableHit;
+    public UnityEvent damageableDeath;
     Animator anim;
 
     [SerializeField]
@@ -65,6 +66,11 @@ public class Damageable : MonoBehaviour
             _isAlive = value;
             anim.SetBool(AnimStrings.isAlive, value);
             Debug.Log("IsAlive: " + value);
+
+            if(value == false)
+            {
+                damageableDeath.Invoke();
+            }
         }
     }
 

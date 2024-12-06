@@ -9,6 +9,7 @@ public class Projectile : MonoBehaviour
     public int damage = 10;
     Rigidbody2D rb;
     public PlayerController player;
+    public AudioSource audioSource;
 
     private void Awake()
     {
@@ -21,10 +22,12 @@ public class Projectile : MonoBehaviour
         if (player.IsFacingRight)
         {
             rb.velocity = new Vector2(moveSpeed.x, moveSpeed.y);
+            AudioSource.PlayClipAtPoint(audioSource.clip, gameObject.transform.position, audioSource.volume);
         }
         else
         {
             rb.velocity = new Vector2(-moveSpeed.x, moveSpeed.y);
+            AudioSource.PlayClipAtPoint(audioSource.clip, gameObject.transform.position, audioSource.volume);
         }
     }
 
@@ -40,7 +43,11 @@ public class Projectile : MonoBehaviour
             {
                 Debug.Log(collision.name + "Hits for" + damage);
                 Destroy(gameObject);
+            }
         }
-    }
+        else if (collision.CompareTag("Ground"))
+        {
+            Destroy(gameObject);
+        }
     }
 }
