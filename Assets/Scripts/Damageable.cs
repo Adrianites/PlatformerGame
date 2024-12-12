@@ -10,6 +10,7 @@ public class Damageable : MonoBehaviour
     public UnityEvent damageableDeath;
     public UnityEvent<int, int> healthChanged;
     Animator anim;
+    public static event Action DeathMenuActivate;
 
     [SerializeField]
     private int _maxHealth = 100;
@@ -41,6 +42,10 @@ public class Damageable : MonoBehaviour
             if (_currentHealth <= 0)
             {
                 IsAlive = false;
+                if (gameObject.CompareTag("Player"))
+                {
+                    DeathMenuActivate?.Invoke();
+                }
             }
         }
     }

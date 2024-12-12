@@ -238,7 +238,7 @@ public class PlayerController : MonoBehaviour
     {
         moveInput = context.ReadValue<Vector2>();
 
-        if (isAlive)
+        if (isAlive && UIManager.isPaused == false)
         {
         IsMoving = moveInput != Vector2.zero;
 
@@ -252,7 +252,7 @@ public class PlayerController : MonoBehaviour
 
     private void SetFacingDirection(Vector2 moveInput)
     {
-        if (moveInput.x > 0 && !IsFacingRight)
+        if (moveInput.x > 0 && !IsFacingRight && UIManager.isPaused == false)
         {
             // face right
             IsFacingRight = true;
@@ -278,7 +278,7 @@ public class PlayerController : MonoBehaviour
 
             // Debug.Log("facing right");
         }
-        else if (moveInput.x < 0 && IsFacingRight)
+        else if (moveInput.x < 0 && IsFacingRight && UIManager.isPaused == false)
         {
             // face left
             IsFacingRight = false;
@@ -307,11 +307,11 @@ public class PlayerController : MonoBehaviour
 
     public void OnRun(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (context.started && UIManager.isPaused == false)
         {
             IsRunning = true;
         }
-        else if (context.canceled)
+        else if (context.canceled && UIManager.isPaused == false)
         {
             IsRunning = false;
         }
@@ -319,7 +319,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnCrouch(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (context.started && UIManager.isPaused == false)
         {
             IsCrouching = true;
             if(IsFacingRight)
@@ -333,7 +333,7 @@ public class PlayerController : MonoBehaviour
                 BulletCrouchLeft.SetActive(true);
             }
         }
-        else if (context.canceled)
+        else if (context.canceled && UIManager.isPaused == false)
         {
             IsCrouching = false;
             if(IsFacingRight)
@@ -351,7 +351,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (context.started && UIManager.isPaused == false)
         {
             IsAttacking = true;
         }
@@ -363,7 +363,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnAltAttack(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (context.started && UIManager.isPaused == false)
         {
             IsAltAttacking = true;
         }
@@ -384,7 +384,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnRoll(InputAction.CallbackContext context)
     {
-        if (context.started && touchingDirections.IsGrounded)
+        if (context.started && touchingDirections.IsGrounded && UIManager.isPaused == false)
         {
             anim.SetTrigger(AnimStrings.RollTrigger);
             rb.velocity = new Vector2(RollImpulse, rb.velocity.y);
@@ -399,7 +399,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnInteract(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (context.started && UIManager.isPaused == false)
         {
             switch(interactionType)
             {
@@ -427,8 +427,11 @@ public class PlayerController : MonoBehaviour
 #endregion
 
     public void HealAnim()
-    {
+    {   
+        if (UIManager.isPaused == false)
+        {
         anim.SetTrigger(AnimStrings.HealTrigger);
+        }
     }
 
 }
