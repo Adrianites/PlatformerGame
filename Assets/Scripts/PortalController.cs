@@ -35,7 +35,11 @@ public class PortalController : MonoBehaviour
     }
 
     private void OnTriggerStay2D(Collider2D collision)
-    {   
+    {
+        GameObject other = collision.gameObject;
+        PlayerController playerController = other.GetComponent<PlayerController>();
+        playerController.portalController = this;
+
         if (collision.CompareTag("Player") && Interacted && !isMovingInPortal)
         {
             StartCoroutine(PortalEnter());
