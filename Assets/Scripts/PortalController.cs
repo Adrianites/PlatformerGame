@@ -36,6 +36,10 @@ public class PortalController : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {   
+        GameObject other = collision.gameObject;
+        PlayerController playerController = other.GetComponent<PlayerController>();
+        playerController.portalController = this;
+
         if (collision.CompareTag("Player") && Interacted && !isMovingInPortal)
         {
             StartCoroutine(PortalEnter());
@@ -70,6 +74,7 @@ public class PortalController : MonoBehaviour
     IEnumerator MoveInPortal()
     {
         float timer = 0;
+        
         while (timer < 0.5f)
         {
             Debug.Log("Moving in portal");

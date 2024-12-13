@@ -6,7 +6,7 @@ public class MainMenuButtons : MonoBehaviour
 {   
     public void PlayGame()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Level1");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Level0");
     }
 
     public void QuitGame()

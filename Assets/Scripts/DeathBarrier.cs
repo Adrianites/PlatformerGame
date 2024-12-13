@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class DeathBarrier : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    Damageable damageable;
+    GameObject player;
+
+ void Awake()
     {
-        
+        damageable = GetComponent<Damageable>();
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnTriggerEnter2D(Collider2D other)
     {
-        
+        if (other.gameObject.tag == "Player")
+        {
+            player.GetComponent<Damageable>().CurrentHealth = 0;
+        }
     }
 }

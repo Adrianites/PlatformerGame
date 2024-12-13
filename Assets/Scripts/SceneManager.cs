@@ -10,16 +10,20 @@ public class SceneManager : MonoBehaviour
     enum Scene
     {
         MainMenu,
+        Level0,
         Level1,
         Level2,
         Level3, 
-        TestArea
+        Level4
     }
 
     public void LoadScene()
     {
         switch (scene)
         {
+            case Scene.Level0:
+                UnityEngine.SceneManagement.SceneManager.LoadScene("Level0");
+                break;
             case Scene.MainMenu:
                 UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
                 break;
@@ -32,8 +36,8 @@ public class SceneManager : MonoBehaviour
             case Scene.Level3:
                 UnityEngine.SceneManagement.SceneManager.LoadScene("Level3");
                 break;
-            case Scene.TestArea:
-                UnityEngine.SceneManagement.SceneManager.LoadScene("TestArea");
+            case Scene.Level4:
+                UnityEngine.SceneManagement.SceneManager.LoadScene("Level4");
                 break;
         }
     }

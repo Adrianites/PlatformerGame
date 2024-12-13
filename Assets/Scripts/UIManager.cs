@@ -16,6 +16,7 @@ public class UIManager : MonoBehaviour
     public GameObject pauseMenu;
     public GameObject deathMenu;
     public GameObject InGameUI;
+    public GameObject DialogueBox;
     public static bool isPaused;
     public static bool isDead;
 
@@ -64,6 +65,9 @@ public class UIManager : MonoBehaviour
         {
             case "MainMenu":
                 UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+                break;
+            case "Level0":
+                UnityEngine.SceneManagement.SceneManager.LoadScene("Level0");
                 break;
             case "Level1":
                 UnityEngine.SceneManagement.SceneManager.LoadScene("Level1");
@@ -131,8 +135,14 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 1;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        isDead = false;
         CurrentGameScene();
+        if (isDead)
+        {
+            deathMenu.SetActive(false);
+            InGameUI.SetActive(true);
+            isDead = false;
+        }
+        
     }
 
     public void QuitGame()
@@ -175,4 +185,14 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(1);
         DeathMenu();
     }
+
+    public void DialogueBoxActive()
+    {
+        if (DialogueBox != null)
+        {
+            DialogueBox.SetActive(true);
+            Debug.Log("Dialogue Box Active");
+        }
+    }
 }
+

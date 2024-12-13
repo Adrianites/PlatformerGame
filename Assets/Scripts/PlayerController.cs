@@ -29,7 +29,8 @@ public class PlayerController : MonoBehaviour
     SpriteRenderer sr;
     Animator anim;
     GameObject portal;
-    PortalController portalController;
+    public PortalController portalController;
+    Dialogue dialogue;
 
     GameObject BulletLeft;
     GameObject BulletRight;
