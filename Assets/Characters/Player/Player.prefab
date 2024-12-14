@@ -434,6 +434,7 @@ MonoBehaviour:
   RollImpulse: 1
   IsRolling: 0
   interactionType: 0
+  portalController: {fileID: 0}
   _isMoving: 0
   isRunning: 0
   isCrouching: 0
@@ -501,46 +502,6 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 7cad7c76-fe19-4100-b743-276580e8c17e
     m_ActionName: Player/Fire[/Mouse/leftButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 82a93086-0c50-4019-8b22-1cf8c1ff97a0
-    m_ActionName: UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: dda18041-4c36-4bf6-958b-a75a60d9575d
-    m_ActionName: UI/Submit[/Keyboard/enter]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 664bfa9a-fde3-4625-8f80-41ad728cf141
-    m_ActionName: UI/Cancel[/Keyboard/escape]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 9518c8a3-418b-45bf-8376-006147d5aceb
-    m_ActionName: UI/Point[/Mouse/position]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 2385da18-6f8f-4d1b-9257-8049bb84bd03
-    m_ActionName: UI/Click[/Mouse/leftButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: ee93019b-05e0-4f47-ad62-3b133a831b2d
-    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 493df329-cf88-4619-ba64-0ec341d1e379
-    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: f3272d67-6f4e-413c-ab57-2ea47910a065
-    m_ActionName: UI/RightClick[/Mouse/rightButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 5415f30c-ae53-44f2-995a-946f091c64c6
-    m_ActionName: UI/TrackedDevicePosition
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 14e24cd3-485f-4033-b35b-9f6ffb6e1c2f
-    m_ActionName: UI/TrackedDeviceOrientation
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7445213578809150035}
@@ -638,9 +599,21 @@ MonoBehaviour:
     m_ActionId: 36cc69c8-4f83-4b4a-a487-49e85d2e1ecf
     m_ActionName: Player/Interact[/Keyboard/e]
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: f8ed1b13-5a26-47fb-8c7c-b6e18a9be2b8
-    m_ActionName: UI/Escape[/Keyboard/escape,/DualSenseGamepadHID/start]
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: PressedEsc
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 1fc293eb-3c56-40b7-ad50-314595250839
+    m_ActionName: Player/Escape[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -762,6 +735,9 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   damageableDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  healthChanged:
     m_PersistentCalls:
       m_Calls: []
   _maxHealth: 100

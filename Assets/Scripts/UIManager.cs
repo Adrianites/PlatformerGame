@@ -15,8 +15,8 @@ public class UIManager : MonoBehaviour
     public Canvas gameCanvas;
     public GameObject pauseMenu;
     public GameObject deathMenu;
-    public GameObject InGameUI;
-    public GameObject DialogueBox;
+    public GameObject inGameUI;
+    public GameObject dialogueBox;
     public static bool isPaused;
     public static bool isDead;
 
@@ -26,6 +26,8 @@ public class UIManager : MonoBehaviour
         gameCanvas = FindObjectOfType<Canvas>();
         pauseMenu.SetActive(false);
         deathMenu.SetActive(false);
+        dialogueBox.SetActive(false);
+        inGameUI.SetActive(true);
         
     }
 
@@ -78,6 +80,9 @@ public class UIManager : MonoBehaviour
             case "Level3":
                 UnityEngine.SceneManagement.SceneManager.LoadScene("Level3");
                 break;
+            case "Level4":
+                UnityEngine.SceneManagement.SceneManager.LoadScene("Level4");
+                break;
             case "QuitScene":
                 UnityEngine.SceneManagement.SceneManager.LoadScene("QuitScene");
                 break;
@@ -96,22 +101,19 @@ public class UIManager : MonoBehaviour
             if (isPaused)
             {
                 ResumeGame();
-                InGameUI.SetActive(true);
-                Cursor.visible = false;
-                Cursor.lockState = CursorLockMode.Locked;
             }
             else
             {
                 PauseGame();
-                InGameUI.SetActive(false);
-                Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.None;
             }
         }
         }
 
         public void PauseGame()
     {
+        inGameUI.SetActive(false);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
         pauseMenu.SetActive(true);
         Time.timeScale = 0;
         isPaused = true;
@@ -119,6 +121,9 @@ public class UIManager : MonoBehaviour
 
     public void ResumeGame()
     {
+        inGameUI.SetActive(true);
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         pauseMenu.SetActive(false);
         Time.timeScale = 1;
         isPaused = false;
@@ -135,14 +140,13 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 1;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        CurrentGameScene();
+        isPaused = false;
         if (isDead)
         {
             deathMenu.SetActive(false);
-            InGameUI.SetActive(true);
             isDead = false;
         }
-        
+        CurrentGameScene();
     }
 
     public void QuitGame()
@@ -173,7 +177,7 @@ public class UIManager : MonoBehaviour
     void DeathMenu()
     {
         deathMenu.SetActive(true);
-        InGameUI.SetActive(false);
+        inGameUI.SetActive(false);
         Time.timeScale = 0;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
@@ -188,9 +192,9 @@ public class UIManager : MonoBehaviour
 
     public void DialogueBoxActive()
     {
-        if (DialogueBox != null)
+        if (dialogueBox != null)
         {
-            DialogueBox.SetActive(true);
+            dialogueBox.SetActive(true);
             Debug.Log("Dialogue Box Active");
         }
     }
